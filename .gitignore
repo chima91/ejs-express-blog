@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# server.jsからapp.jsに変更するが、server.jsは残しておきたい
+/server.js
