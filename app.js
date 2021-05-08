@@ -16,6 +16,9 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about', { title: 'about' });
 });
+app.get('/blogs/create', (req, res) => {
+    res.render('create', { title: 'Create a New Blog' });
+});
 // app.get('/about-us', (req, res) => {
 //     res.redirect('/about');
 // });
