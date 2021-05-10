@@ -1,8 +1,14 @@
 const express = require('express');
 const app = express();
 
+// connect MongoDB Atlas
+const dbURI ='mongodb+srv://user_20210510:test_202105_8@practicenosql.oq6tw.mongodb.net/ejs-express-blog?retryWrites=true&w=majority';
+const mongoose = require('mongoose');
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => app.listen(3000))
+    .catch((err) => console.log(err));
+
 app.set('view engine', 'ejs');
-app.listen(3000);
 
 // middleware & static files
 app.use(express.static('public'));
