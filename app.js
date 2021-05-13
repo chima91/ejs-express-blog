@@ -34,6 +34,16 @@ app.get('/blogs/:id', (req, res) => {
             console.log(err);
         })
 })
+app.delete('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+    Blog.findByIdAndDelete(id)
+        .then(() => {
+            res.json({ redirect: '/blogs' });
+        })
+        .catch(err => {
+            console.log(err);
+        })
+})
 app.get('/blogs', (req, res) => {
     Blog.find().sort({ createdAt: -1 })
         .then(result => {
