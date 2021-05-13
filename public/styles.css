@@ -11,6 +11,7 @@ padding: 0;
 text-decoration: none;
 color: #222;
 }
+
 /* nav & footer styles */
 nav{
 display: flex;
@@ -42,6 +43,7 @@ text-align: center;
 margin: 80px auto 20px;
 }
 h2{
+text-transform: capitalize;
 margin-bottom: 10px;
 }
 h3{
@@ -54,8 +56,34 @@ margin-left: 20px;
 p{
 margin-bottom: 15px;
 }
+
 /* index styles */
+a.single{
+    display: block;
+    margin: 40px 0;
+    padding-left: 30px;
+    border-left: 6px solid greenyellow;
+}
+a.single:hover h2{
+    color: green;
+}
+
 /* details styles */
+.details{
+    position: relative;
+}
+.delete{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    padding: 8px;
+}
+.delete:hover{
+    cursor: pointer;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+}
+
 /* create styles */
 .create-blog form{
 max-width: 400px;
