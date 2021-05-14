@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
+const blogRoutes = require('./routes/blogRoutes');
 
 // connect MongoDB Atlas
 const dbURI ='mongodb+srv://user_20210510:test_202105_8@practicenosql.oq6tw.mongodb.net/ejs-express-blog?retryWrites=true&w=majority';
 const mongoose = require('mongoose');
-const Blog = require('./models/blog');
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => app.listen(3000))
     .catch((err) => console.log(err));
@@ -21,48 +21,7 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about', { title: 'about' });
 });
-app.get('/blogs/create', (req, res) => {
-    res.render('create', { title: 'Create a New Blog' });
-});
-app.get('/blogs/:id', (req, res) => {
-    const id = req.params.id;
-    Blog.findById(id)
-        .then(result => {
-            res.render('details', { title: 'Blog Details', blog: result });
-        })
-        .catch(err => {
-            console.log(err);
-        })
-})
-app.delete('/blogs/:id', (req, res) => {
-    const id = req.params.id;
-    Blog.findByIdAndDelete(id)
-        .then(() => {
-            res.json({ redirect: '/blogs' });
-        })
-        .catch(err => {
-            console.log(err);
-        })
-})
-app.get('/blogs', (req, res) => {
-    Blog.find().sort({ createdAt: -1 })
-        .then(result => {
-            res.render('index', { title: 'All Blogs', blogs: result });
-        })
-        .catch(err => {
-            console.log(err);
-        })
-})
-app.post('/blogs', (req, res) => {
-    const blog = new Blog(req.body);
-    blog.save()
-        .then(() => {
-            res.redirect('/blogs');
-        })
-        .catch(err => {
-            console.log(err);
-        })
-})
+app.use('/blogs', blogRoutes);
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
 });
