@@ -1,16 +1,18 @@
 const mongoose = require('mongoose');
+const { isEmail } = require('validator');
 
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        required: true,
-        lowercase: true
+        required: [true, 'メールアドレスを入力してください。'],
+        lowercase: true,
+        validate: [isEmail, '正しいメールアドレスを入力してください。']
     },
     passwd: {
         type: String,
-        required: true,
-        minLength: 6
+        required: [true, 'パスワードを入力してください。'],
+        minlength: [6, 'パスワードは6文字以上にしてください。']
     }
 });
 
