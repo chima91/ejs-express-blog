@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 const handleErrors = err => {
     // console.log(err.message, err.code);
-    let errors = { email: '', passwd: ''};
+    let errors = { email: '', password: ''};
 
     if(err.code === 11000) {
         errors.email = '入力されたメールアドレスは既に登録されています。'
@@ -26,10 +26,10 @@ module.exports.login_get = (req, res) => {
 }
 
 module.exports.signup_post = async (req, res) => {
-    const { email, passwd } = req.body;
+    const { email, password } = req.body; // 分割代入
 
     try {
-        const user = await User.create({ email, passwd })
+        const user = await User.create({ email, password });
         res.status(201).json(user);
     }
     catch(err) {
@@ -39,6 +39,5 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.login_post = (req, res) => {
-    const { email, passwd } = req.body;
-    
+    const { email, password } = req.body;
 }
