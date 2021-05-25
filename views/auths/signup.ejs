@@ -1,17 +1,17 @@
-<html lang="en">
+<html lang="jp">
 <%- include('../partials/head.ejs') %>
 <body>
     <%- include('../partials/nav.ejs') %>
 
     <form action="/signup">
-      <h2>Sign up</h2>
-      <label for="email">Email</label>
+      <h2>サインアップ</h2>
+      <label for="email">メールアドレス</label>
       <input type="text" name="email" required />
       <div class="email error"></div>
-      <label for="password">Password</label>
+      <label for="password">パスワード</label>
       <input type="password" name="password" required />
       <div class="password error"></div>
-      <button>Sign up</button>
+      <button>サインアップ</button>
     </form>
 
     <%- include('../partials/footer.ejs') %>

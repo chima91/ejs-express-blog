@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
     res.redirect('/blogs');
 });
 app.get('/about', (req, res) => {
-    res.render('about', { title: 'about' });
+    res.render('about', { title: 'オープンデータについて' });
 });
 app.use('/blogs', blogRoutes);
 app.use(authRoutes);
