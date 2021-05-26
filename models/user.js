@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         validate: [isEmail, '正しいメールアドレスを入力してください。']
     },
-    passwd: {
+    password: {
         type: String,
         required: [true, 'パスワードを入力してください。'],
         minlength: [6, 'パスワードは6文字以上にしてください。']
@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt();
-    this.passwd = await bcrypt.hash(this.passwd, salt);
+    this.password = await bcrypt.hash(this.password, salt);
     next();
 });
 
