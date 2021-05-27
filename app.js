@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const blogRoutes = require('./routes/blogRoutes');
 const authRoutes = require('./routes/authRoutes');
-const { requireAuth } = require('./middleware/authMiddleware');
+const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 const cookieParser = require('cookie-parser');
 
@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('*', checkUser);
 app.get('/', requireAuth, (req, res) => {
     res.redirect('/blogs');
 });
