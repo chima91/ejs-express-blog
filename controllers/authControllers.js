@@ -2,11 +2,10 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 const handleErrors = err => {
-    // console.log(err.message, err.code);
     let errors = { email: '', password: ''};
 
     if(err.code === 11000) {
-        errors.email = '入力されたメールアドレスは既に登録されています。'
+        errors.email = '入力されたメールアドレスは既に登録されています。';
         return errors;
     }
 
