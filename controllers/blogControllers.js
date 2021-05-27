@@ -3,7 +3,7 @@ const Blog = require('../models/blog');
 const blog_index = (req, res) => {
     Blog.find().sort({ createdAt: -1 })
     .then(result => {
-        res.render('blogs/index', { title: 'All Blogs', blogs: result });
+        res.render('blogs/index', { title: 'ブログ一覧', blogs: result });
     })
     .catch(err => {
         console.log(err);
@@ -14,15 +14,15 @@ const blog_details = (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
         .then(result => {
-            res.render('blogs/details', { title: 'Blog Details', blog: result });
+            res.render('blogs/details', { title: 'ブログ詳細', blog: result });
         })
         .catch(err => {
-            res.status(404).render('404', { title: 'Blog Not Found' });
+            res.status(404).render('404', { title: '404' });
         })
 }
 
 const blog_create_get = (req, res) => {
-    res.render('blogs/create', { title: 'Create a New Blog' });
+    res.render('blogs/create', { title: 'ブログを投稿する' });
 }
 
 const blog_create_post = (req, res) => {
