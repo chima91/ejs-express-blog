@@ -2,7 +2,15 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 const handleErrors = err => {
-    let errors = { email: '', password: ''};
+    console.log(err.message, err.code);
+    let errors = { email: '', password: '' };
+
+    if(err.message === '正しくないメールアドレス') {
+        errors.email = '正しいメールアドレスを入力してください。';
+    }
+    if(err.message === '正しくないパスワード') {
+        errors.password = '正しいパスワードを入力してください。';
+    }
 
     if(err.code === 11000) {
         errors.email = '入力されたメールアドレスは既に登録されています。';
@@ -37,7 +45,7 @@ module.exports.signup_post = async (req, res) => {
 
     try {
         const user = await User.create({ email, password });
-        const token =createToken(user._id);
+        const token = createToken(user._id);
         res.cookie('my-jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(201).json({ user: user._id });
     }
@@ -48,13 +56,16 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.login_post = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body; // 分割代入
 
     try {
         const user = await User.login(email, password);
+        const token = createToken(user._id);
+        res.cookie('my-jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({ user: user._id });
     }
     catch(err) {
-        res.status(400).json({});
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
     }
 }

@@ -32,9 +32,9 @@ userSchema.statics.login = async function(email, password) {
         if(auth) {
             return user;
         }
-        throw Error('パスワードが正しくありません。')
+        throw Error('正しくないパスワード');
     }
-    throw Error('メールアドレスが正しくありません。')
+    throw Error('正しくないメールアドレス');
 }
 
 const User = mongoose.model('user', userSchema);
