@@ -40,6 +40,11 @@ module.exports.login_get = (req, res) => {
     res.render('auths/login', { title: 'ログイン' });
 }
 
+module.exports.logout_get = (req, res) => {
+    res.cookie('myJwt', '', { maxAge: 1 });
+    res.redirect('/');
+}
+
 module.exports.signup_post = async (req, res) => {
     const { email, password } = req.body; // 分割代入
 
