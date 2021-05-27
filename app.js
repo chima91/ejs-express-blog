@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const blogRoutes = require('./routes/blogRoutes');
+const authRoutes = require('./routes/authRoutes');
+const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+
+const cookieParser = require('cookie-parser');
 
 // connect MongoDB Atlas
 const dbURI ='mongodb+srv://user_20210510:test_202105_8@practicenosql.oq6tw.mongodb.net/ejs-express-blog?retryWrites=true&w=majority';
@@ -14,14 +18,18 @@ app.set('view engine', 'ejs');
 // middleware & static files
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 
-app.get('/', (req, res) => {
+app.get('*', checkUser);
+app.get('/', requireAuth, (req, res) => {
     res.redirect('/blogs');
 });
 app.get('/about', (req, res) => {
-    res.render('about', { title: 'about' });
+    res.render('about', { title: 'オープンデータについて' });
 });
-app.use('/blogs', blogRoutes);
+app.use('/blogs', requireAuth, blogRoutes);
+app.use(authRoutes);
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
 });

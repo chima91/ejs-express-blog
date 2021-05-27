@@ -1,11 +1,18 @@
 <nav>
-    <div class="site-title">
-        <a href="/"><h1>ejs-express-blog</h1></a>
-        <p>practice using ejs, express, Node and so on.</p>
-    </div>
-    <ul>
-        <li><a href="/">Blogs</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/blogs/create">New Blog</a></li>
-    </ul>
+  <div class="site-title">
+    <a href="/"><h1>ejs-express-blog</h1></a>
+    <p>practice using ejs, express, Node and so on.</p>
+  </div>
+  <ul>
+    <% if(user) { %> 
+      <li><%= user.email %> がログイン中</li>
+      <li><a href="/logout">Log Out</a></li>
+      <li><a href="/">Blogs</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/blogs/create">New Blog</a></li>
+    <% } else { %>
+      <li><a href="/signup">Sign Up</a></li>
+      <li><a href="/login">Log In</a></li>
+    <% } %>
+  </ul>
 </nav>
